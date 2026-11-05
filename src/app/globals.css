@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/* Work-order look: cool paper, ink, one dispatch blue, high-vis yellow for "on the way". */
+:root {
+  --paper: #f3f5f7; --surface: #ffffff; --sunk: #e9edf1; --ink: #15202b; --muted: #5a6676; --line: #d6dde5;
+  --accent: #0b5fc4; --accent-ink: #ffffff; --accent-soft: #e2edfb;
+  --ok: #1c7f39; --ok-soft: #e1f3e6; --warn: #9a5b00; --warn-soft: #fbf0dc; --bad: #b42318; --bad-soft: #fbe6e4; --hivis: #e8b500;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e1318; --surface: #161e27; --sunk: #1d2732; --ink: #e5ebf1; --muted: #93a1b1; --line: #283543;
+    --accent: #5ea3ff; --accent-ink: #06111f; --accent-soft: #16304f;
+    --ok: #5bc77b; --ok-soft: #14301e; --warn: #e3a845; --warn-soft: #352812; --bad: #f2776d; --bad-soft: #3a1a18; --hivis: #f2c230;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper); --color-surface: var(--surface); --color-sunk: var(--sunk); --color-ink: var(--ink);
+  --color-muted: var(--muted); --color-line: var(--line); --color-accent: var(--accent); --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-body), system-ui, sans-serif;
+  --font-display: var(--font-head), "Arial Narrow", system-ui, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, monospace;
+}
+
+body { background: var(--paper); color: var(--ink); font-family: var(--font-sans); font-size: 15px; line-height: 1.5; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.15; text-wrap: balance; letter-spacing: .01em; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@layer components {
+  .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .label { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+  .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .field > span { font-size: .8rem; color: var(--muted); font-weight: 600; }
+  .input { width: 100%; min-width: 0; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 9px 11px; min-height: 42px; color: var(--ink); }
+  textarea.input { min-height: 84px; resize: vertical; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+    border-radius: 8px; padding: 8px 14px; min-height: 42px; font-weight: 600; font-size: .92rem; cursor: pointer; text-decoration: none; }
+  .btn:hover { border-color: var(--muted); }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { filter: brightness(1.07); border-color: var(--accent); }
+  .btn-danger { color: var(--bad); border-color: var(--bad); }
+  .btn-sm { min-height: 34px; padding: 4px 11px; font-size: .84rem; }
+  .btn:disabled { opacity: .55; cursor: wait; }
+  .pill { display: inline-flex; align-items: center; gap: 5px; font-size: .72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 99px; background: var(--sunk); color: var(--muted); white-space: nowrap; }
+  .pill-info { background: var(--accent-soft); color: var(--accent); }
+  .pill-ok { background: var(--ok-soft); color: var(--ok); }
+  .pill-warn { background: var(--warn-soft); color: var(--warn); }
+  .pill-bad { background: var(--bad-soft); color: var(--bad); }
+  .alert { border-radius: 8px; padding: 10px 12px; font-size: .9rem; }
+  .alert-error { background: var(--bad-soft); color: var(--ink); border-left: 3px solid var(--bad); }
+  .alert-ok { background: var(--ok-soft); color: var(--ink); border-left: 3px solid var(--ok); }
+  .alert-info { background: var(--accent-soft); color: var(--ink); }
+  .alert-warn { background: var(--warn-soft); color: var(--ink); }
+  .check { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; background: var(--paper); }
+  .check input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); }
+  .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+}
